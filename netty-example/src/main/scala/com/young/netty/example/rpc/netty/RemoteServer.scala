@@ -1,5 +1,7 @@
 package com.young.netty.example.rpc.netty
 
+import java.io.IOException
+
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.ChannelInitializer
 import io.netty.channel.nio.NioEventLoopGroup
@@ -13,12 +15,18 @@ class RemoteServer(initHandler: ChannelInitializer[SocketChannel], port: Int = 8
 
   @throws[Exception]
   def start(): Unit = {
-    val serverBootStrap = new ServerBootstrap()
-    val listenerPool = new NioEventLoopGroup(5)
-    val processPool = new NioEventLoopGroup(10)
-    serverBootStrap.group(listenerPool, processPool).channel(classOf[NioServerSocketChannel]).option(SO_BACKLOG, 1024).childHandler(initHandler)
-    val futureChannel = serverBootStrap.bind(port).sync()
-    futureChannel.channel().closeFuture().sync()
+    try {
+      val serverBootStrap = new ServerBootstrap()
+      val listenerPool = new NioEventLoopGroup(5)
+      val processPool = new NioEventLoopGroup(10)
+      serverBootStrap.group(listenerPool, processPool).channel(classOf[NioServerSocketChannel]).option(SO_BACKLOG, 1024).childHandler(initHandler)
+      val futureChannel = serverBootStrap.bind(port).sync()
+      futureChannel.channel().closeFuture().sync()
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+        println("连接断开了")
+    }
   }
 }
 
@@ -26,7 +34,7 @@ object RemoteServer {
   @throws[Exception]
   def start(initHandler: ChannelInitializer[SocketChannel], port: Int = 8080): Unit = {
     val server = new RemoteServer(initHandler, port)
-    println("start server port is "+port)
+    println("start server port is " + port)
     server.start()
   }
 }

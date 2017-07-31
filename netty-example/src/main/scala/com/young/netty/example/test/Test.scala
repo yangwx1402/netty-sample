@@ -8,4 +8,6 @@ trait Test {
   def test(name: String): String
 
   def test(name:String,age:Integer):String
+
+  def print(user:User):User
 }
