@@ -15,4 +15,9 @@ class TestImpl extends Test{
     println("name="+name+",age="+age)
     name+age+" now time is :"+new Date()
   }
+
+  override def print(user: User): User = {
+    println("user="+user)
+    user
+  }
 }

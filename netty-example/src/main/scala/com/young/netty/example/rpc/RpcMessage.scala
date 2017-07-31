@@ -5,6 +5,6 @@ package com.young.netty.example.rpc
   */
 sealed trait RpcMessage
 
-case class RpcRequest(interfaceName: String, methodName: String, retrunClassName: String, anyRef: Any*) extends RpcMessage
+case class RpcRequest(interfaceName: String, methodName: String, retrunClassName: String, anyRef: AnyRef*) extends RpcMessage
 
 case class RpcResponse(result: AnyRef, status: String, message: String) extends RpcMessage
