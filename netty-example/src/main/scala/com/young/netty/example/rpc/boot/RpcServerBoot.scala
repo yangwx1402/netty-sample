@@ -2,7 +2,7 @@ package com.young.netty.example.rpc.boot
 
 import com.young.netty.example.rpc.netty.RemoteServer
 import com.young.netty.example.rpc.netty.handler.{DecodeHandler, EncodeHandler, ProcessCallHandler}
-import com.young.netty.example.rpc.serialization.support.{KyroDSerialization, JavaDSerialization}
+import com.young.netty.example.rpc.serialization.support.KyroDSerialization
 import com.young.netty.example.rpc.{RpcRequest, RpcResponse}
 import io.netty.channel.ChannelInitializer
 import io.netty.channel.socket.SocketChannel
